@@ -13,6 +13,7 @@ A Shiny App
 
 https://jchionh.shinyapps.io/GE2015Results
 
+
 Introduction
 ========================================================
 I built a Shiny App for displaying the Singapore General Election 2015 results. 
@@ -28,8 +29,7 @@ Sample Raw Data
 ========================================================
 class: small-code
 Here's a sampling of the raw data that my app uses:
-
-```r
+```{r}
 gedat <- read.csv("data/GE2015ResultsData.csv")
 ```
 You can view the data on the **Raw Ddata** tab of the app:
@@ -42,33 +42,16 @@ class: small-code
 The application grabs raw data of number of registered voters, number of votes casted, and make these computations:
 
 - Vote percentage for each contesting candidate group:
-
-```r
+```{r}
 chose <- gedat[gedat$ElectorialDivisions == "Aljunied",]
 total <- chose$Cast1 + chose$Cast2 + chose$Cast3
 round(chose$Cast1 / total * 100, digits=2)
 ```
 
-```
-[1] 50.96
-```
-
 - Rejected votes and the percentage for each Division:
-
-```r
+```{r}
 format(chose$Registered - total, big.mark=",")
-```
-
-```
-[1] "10,668"
-```
-
-```r
 round((chose$Registered - total) / chose$Registered * 100, digits=2)
-```
-
-```
-[1] 7.2
 ```
 
 Application Example
