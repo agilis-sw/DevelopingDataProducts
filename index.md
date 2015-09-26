@@ -13,7 +13,6 @@ A Shiny App
 
 https://jchionh.shinyapps.io/GE2015Results
 
-
 Introduction
 ========================================================
 I built a Shiny App for displaying the Singapore General Election 2015 results. 
