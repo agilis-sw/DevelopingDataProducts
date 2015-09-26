@@ -9,7 +9,6 @@ shinyUI(
              # about panel
              tabPanel("About",
                       mainPanel(
-                        tableOutput("preload"),
                         includeMarkdown("about.md")
                       )
              ),
