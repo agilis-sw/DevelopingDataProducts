@@ -6,6 +6,14 @@ shinyUI(
   # nav bar top
   navbarPage("2015 Singapore General Elections Results",
              
+             # about panel
+             tabPanel("About",
+                      mainPanel(
+                        tableOutput("preload"),
+                        includeMarkdown("about.md")
+                      )
+             ),
+             
              # results by electoral divisions
              tabPanel("By Electoral Divisions",
                       sidebarPanel(
@@ -13,7 +21,7 @@ shinyUI(
                       ),
                       mainPanel(
                         h1(textOutput("divisionChose")),
-                        h5(textOutput("divisionSeats", inline = TRUE), " ", textOutput("divisionSeatsString", inline = TRUE), " contested."),
+                        h5(textOutput("divisionSeatsString", inline = TRUE), " contested."),
                         h2(textOutput("divisionFirst", inline = TRUE), " wins,", textOutput("divisionFirstPct", inline = TRUE), "%"),
                         h5("(", textOutput("divisionCast1", inline = TRUE), "votes )"),
                         h3(textOutput("divisionSecond", inline = TRUE), ":", textOutput("divisionSecondPct", inline=TRUE), "%"),
@@ -57,13 +65,6 @@ shinyUI(
                         p("The data is obtained from the Singapore Elections Department webite."),
                         p("Sources are listed in the About tab."),
                         tableOutput("dataView")
-                      )
-             ),
-             
-             # about panel
-             tabPanel("About",
-                      mainPanel(
-                        includeMarkdown("about.md")
                       )
              )
   )

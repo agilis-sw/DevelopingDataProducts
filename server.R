@@ -1,21 +1,30 @@
 library(shiny)
 
+# read the ge data set
+gedat <- read.csv("data/GE2015ResultsData.csv")
+
+# global function to determine if we should use seat or seats
+getSeatsString <- function(numSeats)
+{
+  seatString <- "seat"
+  if (numSeats > 1) {
+    seatString <- paste(seatString, "s", sep="")
+  }
+  seatString
+}
+
 # Define server logic required to generate and plot a random distribution
 shinyServer(function(input, output) {
-  
-  # read the ge data set
-  gedat <- read.csv("data/GE2015ResultsData.csv")
-  
-  # create the reactive input for display
-  dataSetInput <- reactive({gedat})
+    
   # now render the output of the raw data
-  output$dataView <- renderTable({dataSetInput()})
+  output$dataView <- renderTable(gedat)
   
   # render the list of electoral divisions for choice
   output$divisionSelector <- renderUI({
     selectInput("division", 
                 "Electoral Division:", 
-                as.character(gedat$ElectorialDivisions)
+                as.character(gedat$ElectorialDivisions),
+                
     )
   })
   
@@ -79,11 +88,8 @@ shinyServer(function(input, output) {
     divisionChosen()$Seats
   })
   output$divisionSeatsString <- renderText({
-    seatString <- "seat"
-    if (divisionChosen()$Seats[1] > 1) {
-      seatString <- paste(seatString, "s", sep="")
-    }
-    seatString
+    chose <- divisionChosen()
+    paste(divisionChosen()$Seats, getSeatsString(chose$Seats[1]))
   })
   
   # total number of registered voters
@@ -111,10 +117,4 @@ shinyServer(function(input, output) {
   output$divisionCast3 <- renderText({
     format(divisionChosen()$Cast3, big.mark=",")
   })
-  
-  
-  
-  # now compute the win percentages
-  #chosenDivision <- gedat[gedat$ElectorialDivisions == divisionChosen(),]
-  #output$elec <- renderText(chosenDivision)
 })
