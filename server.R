@@ -60,15 +60,12 @@ shinyServer(function(input, output) {
   output$divisionThirdBlock <- renderUI({
     chose <- divisionChosen()
     total <- chose$Cast1 + chose$Cast2 + chose$Cast3
-    if (!is.na(chose$Third))
-    {
+    if (!is.na(chose$Third[1])) {
       span(
       h3(chose$Third, ":", round(chose$Cast3 / total * 100, digits=2), "%"),
       h5("(", format(chose$Cast3, big.mark=","), " votes )")
       )
-    }
-    else
-    {
+    } else {
       p("")
     }
   })
@@ -83,8 +80,7 @@ shinyServer(function(input, output) {
   })
   output$divisionSeatsString <- renderText({
     seatString <- "seat"
-    if (divisionChosen()$Seats > 1)
-    {
+    if (divisionChosen()$Seats[1] > 1) {
       seatString <- paste(seatString, "s", sep="")
     }
     seatString

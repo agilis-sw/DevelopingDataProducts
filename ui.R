@@ -1,4 +1,5 @@
 library(shiny)
+require(markdown)
 
 # Define UI for application that plots random distributions 
 shinyUI(
